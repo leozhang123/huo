@@ -16,49 +16,49 @@
 package org.zl.huo.huoservice.bean;
 
 /**
- * 
- * 
  * @author Leo
- * @version 0.1
+ *
  */
-public enum Sex {
-	MALE("male",1),FEMALE("female",2);
-	//int MALE = 1;
-	//int FEMALE = 2;
-	private String name;  
-    private int value;
-    
-    Sex(String name, int value) {
-        this.name = name;  
-        this.value = value;  
-    }
+public class Pager<T> {
 
+	private int page;
+	private int size;
+	private T data;
 	/**
-	 * @return the name
+	 * @return the page
 	 */
-	public String getName() {
-		return name;
+	public int getPage() {
+		return page;
 	}
-
 	/**
-	 * @param name the name to set
+	 * @param page the page to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setPage(int page) {
+		this.page = page;
 	}
-
 	/**
-	 * @return the value
+	 * @return the size
 	 */
-	public int getValue() {
-		return value;
+	public int getSize() {
+		return size;
 	}
-
 	/**
-	 * @param value the value to set
+	 * @param size the size to set
 	 */
-	public void setValue(int value) {
-		this.value = value;
-	}  
+	public void setSize(int size) {
+		this.size = size;
+	}
+	/**
+	 * @return the data
+	 */
+	public T getData() {
+		return data;
+	}
+	/**
+	 * @param data the data to set
+	 */
+	public void setData(T data) {
+		this.data = data;
+	}
 
 }

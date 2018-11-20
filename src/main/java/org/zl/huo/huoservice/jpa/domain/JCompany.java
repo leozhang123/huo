@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zl.huo.huoservice.bean;
+package org.zl.huo.huoservice.jpa.domain;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -35,7 +35,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name = "h_company")
-public class Company {
+public class JCompany {
 
 	@Id
 	private String id;
@@ -54,7 +54,7 @@ public class Company {
 	private String info;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company") 
-	private List<Job> job;
+	private List<JJob> job;
 	
 	/**
 	 * @return the id
@@ -138,13 +138,13 @@ public class Company {
 	/**
 	 * @return the job
 	 */
-	public List<Job> getJob() {
+	public List<JJob> getJob() {
 		return job;
 	}
 	/**
 	 * @param job the job to set
 	 */
-	public void setJob(List<Job> job) {
+	public void setJob(List<JJob> job) {
 		this.job = job;
 	}
 }

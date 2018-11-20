@@ -13,10 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zl.huo.huoservice.bean;
+package org.zl.huo.huoservice.jpa.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.zl.huo.huoservice.bean.Sex;
 
 /**
  * 招聘职位信息
@@ -24,65 +33,102 @@ import java.io.Serializable;
  * @author Leo
  * @version 0.1
  */
-public class Job implements Serializable {
+@Entity
+@Table(name="h_job")
+public class JJob implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2981458250011887437L;
 	
+	@Id
 	private String id;
 	//综合薪资
+	@Column(name="SALARY")
 	private String salary;
 	//工作岗位
+	@Column(name="POSITION")
 	private String position;
 	//年龄
+	@Column(name="AGE")
 	private int age;
 	//性别
+	@Column(name="SEX")
 	private Sex sex;
 	//地址
+	@Column(name="ADDRESS")
 	private String address;
 	//工作地点
+	@Column(name="LOCATION")
 	private String location;
 	//底薪
+	@Column
 	private String basicSalary;
 	//薪资结构
+	@Column
 	private String SalaryStructure;
 	//伙食
+	@Column
 	private String food;
 	//住宿
+	@Column
 	private String dormitory;
 	//交通
+	@Column
 	private String traffic;
 	//工作内容
+	@Column
 	private String JobContent ;
 	//工作时长
+	@Column
 	private String workTime;
 	//工作环境
+	@Column
 	private String workEnv;
 	//合同说明
+	@Column
 	private String contractDesc;
 	//工资发放
+	@Column
 	private String Payroll;
 	//保险说明
+	@Column
 	private String InsuranceDesc;
 	//身份证
+	@Column
 	private String idCard;
 	//毕业证
+	@Column
 	private String diploma;
 	//技能证书
+	@Column
 	private String skillCertificate;
 	//纹身
+	@Column
 	private String tattoo;
 	///烟疤
+	@Column
 	private String scars;
 	//英文水平
+	@Column
 	private String englishLevel;
 	//服装要求
+	@Column
 	private String clothingRequirements;
 	//体检要求
+	@Column
 	private String physicalExamination;
-
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "companyid")
+	private JCompany company;
+	
+	
+	public JJob() {
+		super();
+	}
+	
 	/**
 	 * @return the salary
 	 */
@@ -436,66 +482,79 @@ public class Job implements Serializable {
 		this.physicalExamination = physicalExamination;
 	}
 
-		/* (non-Javadoc)
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			StringBuilder builder = new StringBuilder();
-			builder.append("Job [id=");
-			builder.append(id);
-			builder.append(", salary=");
-			builder.append(salary);
-			builder.append(", position=");
-			builder.append(position);
-			builder.append(", age=");
-			builder.append(age);
-			builder.append(", sex=");
-			builder.append(sex);
-			builder.append(", address=");
-			builder.append(address);
-			builder.append(", location=");
-			builder.append(location);
-			builder.append(", basicSalary=");
-			builder.append(basicSalary);
-			builder.append(", SalaryStructure=");
-			builder.append(SalaryStructure);
-			builder.append(", food=");
-			builder.append(food);
-			builder.append(", dormitory=");
-			builder.append(dormitory);
-			builder.append(", traffic=");
-			builder.append(traffic);
-			builder.append(", JobContent=");
-			builder.append(JobContent);
-			builder.append(", workTime=");
-			builder.append(workTime);
-			builder.append(", workEnv=");
-			builder.append(workEnv);
-			builder.append(", contractDesc=");
-			builder.append(contractDesc);
-			builder.append(", Payroll=");
-			builder.append(Payroll);
-			builder.append(", InsuranceDesc=");
-			builder.append(InsuranceDesc);
-			builder.append(", idCard=");
-			builder.append(idCard);
-			builder.append(", diploma=");
-			builder.append(diploma);
-			builder.append(", skillCertificate=");
-			builder.append(skillCertificate);
-			builder.append(", tattoo=");
-			builder.append(tattoo);
-			builder.append(", scars=");
-			builder.append(scars);
-			builder.append(", englishLevel=");
-			builder.append(englishLevel);
-			builder.append(", clothingRequirements=");
-			builder.append(clothingRequirements);
-			builder.append(", physicalExamination=");
-			builder.append(physicalExamination);
-			builder.append("]");
-			return builder.toString();
-		}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Job [id=");
+		builder.append(id);
+		builder.append(", salary=");
+		builder.append(salary);
+		builder.append(", position=");
+		builder.append(position);
+		builder.append(", age=");
+		builder.append(age);
+		builder.append(", sex=");
+		builder.append(sex);
+		builder.append(", address=");
+		builder.append(address);
+		builder.append(", location=");
+		builder.append(location);
+		builder.append(", basicSalary=");
+		builder.append(basicSalary);
+		builder.append(", SalaryStructure=");
+		builder.append(SalaryStructure);
+		builder.append(", food=");
+		builder.append(food);
+		builder.append(", dormitory=");
+		builder.append(dormitory);
+		builder.append(", traffic=");
+		builder.append(traffic);
+		builder.append(", JobContent=");
+		builder.append(JobContent);
+		builder.append(", workTime=");
+		builder.append(workTime);
+		builder.append(", workEnv=");
+		builder.append(workEnv);
+		builder.append(", contractDesc=");
+		builder.append(contractDesc);
+		builder.append(", Payroll=");
+		builder.append(Payroll);
+		builder.append(", InsuranceDesc=");
+		builder.append(InsuranceDesc);
+		builder.append(", idCard=");
+		builder.append(idCard);
+		builder.append(", diploma=");
+		builder.append(diploma);
+		builder.append(", skillCertificate=");
+		builder.append(skillCertificate);
+		builder.append(", tattoo=");
+		builder.append(tattoo);
+		builder.append(", scars=");
+		builder.append(scars);
+		builder.append(", englishLevel=");
+		builder.append(englishLevel);
+		builder.append(", clothingRequirements=");
+		builder.append(clothingRequirements);
+		builder.append(", physicalExamination=");
+		builder.append(physicalExamination);
+		builder.append("]");
+		return builder.toString();
+	}
 
+	/**
+	 * @return the company
+	 */
+	public JCompany getCompany() {
+		return company;
+	}
+
+	/**
+	 * @param company the company to set
+	 */
+	public void setCompany(JCompany company) {
+		this.company = company;
+	}
 }

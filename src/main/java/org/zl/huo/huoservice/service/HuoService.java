@@ -17,9 +17,9 @@ package org.zl.huo.huoservice.service;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.zl.huo.huoservice.bean.Job;
+import org.zl.huo.huoservice.bean.Pager;
 
 /**
  * 
@@ -37,7 +37,7 @@ public interface HuoService {
 	 */
 	Job getJob(String id);
 	
-	Page<Job> findAll(Pageable pageable);
+	Pager<Job> findAll(Pageable pageable);
 	
 	List<Job> findTop10(String name);
 	

@@ -22,7 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.RepositoryDefinition;
-import org.zl.huo.huoservice.bean.Job;
+import org.zl.huo.huoservice.jpa.domain.JJob;
 
 /**
  * 
@@ -30,12 +30,12 @@ import org.zl.huo.huoservice.bean.Job;
  * @author Leo
  * @version 0.1
  */
-@RepositoryDefinition(domainClass = Job.class, idClass = String.class)
-public interface JobRepository extends PagingAndSortingRepository<Job, String> {
+@RepositoryDefinition(domainClass = JJob.class, idClass = String.class)
+public interface JobRepository extends PagingAndSortingRepository<JJob, String> {
 
 	@Query("from Job where position like %:position%")
-	List<Job> findTop10ByPosition(@Param("position") String position,Pageable pageable);
+	List<JJob> findTop10ByPosition(@Param("position") String position,Pageable pageable);
 	
 	@Query("from Job")
-	List<Job> findTop10(Pageable pageable);
+	List<JJob> findTop10(Pageable pageable);
 }

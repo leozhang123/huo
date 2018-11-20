@@ -22,14 +22,15 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.zl.huo.huoservice.bean.Job;
+import org.zl.huo.huoservice.bean.Pager;
 import org.zl.huo.huoservice.jpa.JobRepository;
+import org.zl.huo.huoservice.jpa.domain.JJob;
 import org.zl.huo.huoservice.service.HuoService;
 
 /**
@@ -52,29 +53,31 @@ public class HuoServicesImpl implements HuoService{
 		job.setAge(11);
 		job.setSalary("test"+id);
 		job.setSex(Sex.MALE);*/
-		Optional<Job> job = jobRepository.findById(id);
-		return job.orElse(null);
+		Optional<JJob> job = jobRepository.findById(id);
+		return ModelHelper.jjob2Job(job.orElse(null));
 	}
 
 	@Override
 	public List<Job> findTop10(String name) {
 		log.debug("findTop10[{}]",name);
 		if(StringUtils.isEmpty(name)) {
-			return jobRepository.findTop10(PageRequest.of(0, 10));
+			return ModelHelper.jjob2Job(jobRepository.findTop10(PageRequest.of(0, 10)));
 		}
-		return jobRepository.findTop10ByPosition(name,PageRequest.of(0, 10));
+		return ModelHelper.jjob2Job(jobRepository.findTop10ByPosition(name,PageRequest.of(0, 10)));
 	}
 
 	@Override
 	public Job saveJob(Job job) {
 		job.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-		return jobRepository.save(job);
+		JJob jjob=jobRepository.save(ModelHelper.job2JJob(job));
+		return ModelHelper.jjob2Job(jjob);
 	}
 
 	@Override
 	public Job updateJob(Job job) {
 		Assert.hasText(job.getId(),"id not empty");
-		return jobRepository.save(job);
+		JJob jjob=jobRepository.save(ModelHelper.job2JJob(job));
+		return ModelHelper.jjob2Job(jjob);
 	}
 
 	@Override
@@ -83,8 +86,8 @@ public class HuoServicesImpl implements HuoService{
 	}
 
 	@Override
-	public Page<Job> findAll(Pageable pageable) {
-		return jobRepository.findAll(pageable);
+	public Pager<Job> findAll(Pageable pageable) {
+		return ModelHelper.toPager(jobRepository.findAll(pageable));
 	}
 
 	
