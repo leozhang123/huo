@@ -13,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zl.huo.huoservice.service;
+package org.zl.huo.huoservice.jpa;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.RepositoryDefinition;
 import org.zl.huo.huoservice.bean.Job;
 
 /**
@@ -27,23 +30,12 @@ import org.zl.huo.huoservice.bean.Job;
  * @author Leo
  * @version 0.1
  */
-public interface HuoService {
+@RepositoryDefinition(domainClass = Job.class, idClass = String.class)
+public interface JobRepository extends PagingAndSortingRepository<Job, String> {
 
-
-	/**
-	 * 
-	 * @param id
-	 * @return
-	 */
-	Job getJob(String id);
+	@Query("from Job where position like %:position%")
+	List<Job> findTop10ByPosition(@Param("position") String position,Pageable pageable);
 	
-	Page<Job> findAll(Pageable pageable);
-	
-	List<Job> findTop10(String name);
-	
-	Job saveJob(Job job);
-	
-	Job updateJob(Job job);
-	
-	void deleteJob(String id);
+	@Query("from Job")
+	List<Job> findTop10(Pageable pageable);
 }

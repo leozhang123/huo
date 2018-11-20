@@ -13,13 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zl.huo.huoservice.service;
-
-import java.util.List;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.zl.huo.huoservice.bean.Job;
+package org.zl.huo.huoservice.jpa.domain;
 
 /**
  * 
@@ -27,23 +21,7 @@ import org.zl.huo.huoservice.bean.Job;
  * @author Leo
  * @version 0.1
  */
-public interface HuoService {
+public class Job {
 
-
-	/**
-	 * 
-	 * @param id
-	 * @return
-	 */
-	Job getJob(String id);
 	
-	Page<Job> findAll(Pageable pageable);
-	
-	List<Job> findTop10(String name);
-	
-	Job saveJob(Job job);
-	
-	Job updateJob(Job job);
-	
-	void deleteJob(String id);
 }

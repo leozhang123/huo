@@ -22,7 +22,15 @@ package org.zl.huo.huoservice.bean;
  * @version 0.1
  */
 public enum Sex {
-	MALE,FEMALE;
+	MALE("male",1),FEMALE("female",2);
 	//int MALE = 1;
 	//int FEMALE = 2;
+	private String name;  
+    private int value;
+    
+    Sex(String name, int value) {
+        this.name = name;  
+        this.value = value;  
+    }  
+
 }

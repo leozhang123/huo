@@ -17,12 +17,21 @@ package org.zl.huo.huoservice.bean;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * 招聘职位信息
  * 
  * @author Leo
  * @version 0.1
  */
+@Entity
+@Table(name="h_job")
 public class Job implements Serializable {
 
 	/**
@@ -30,18 +39,25 @@ public class Job implements Serializable {
 	 */
 	private static final long serialVersionUID = -2981458250011887437L;
 	
+	@Id
 	private String id;
 	//月薪
+	@Column(name="SALARY")
 	private String salary;
 	//岗位
+	@Column(name="POSITION")
 	private String position;
 	//年龄
+	@Column(name="AGE")
 	private int age;
 	//性别
+	@Column(name="SEX")
 	private Sex sex;
 	//地址
+	@Column(name="ADDRESS")
 	private String address;
 	//招聘位置
+	@Column(name="LOCATION")
 	private String location;
 	
 	/**

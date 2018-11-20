@@ -15,10 +15,19 @@
  */
 package org.zl.huo.huoservice.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.zl.huo.huoservice.bean.ActionResult;
 import org.zl.huo.huoservice.bean.Job;
@@ -41,5 +50,34 @@ public class JobController {
 	public ActionResult<?> getJob(@PathVariable("id") String id){
 		Job job = huoService.getJob(id);
 		return new ActionResult<>(job);
+	}
+	
+	@GetMapping("/top10")
+	public ActionResult<?> findTop10(@RequestParam(value="param",required=false) String param){
+		List<Job> jobs = huoService.findTop10(param);
+		return new ActionResult<>(jobs);
+	}
+	
+	@PostMapping("/")
+	public ActionResult<?> saveJob(Job job){
+		Job j = huoService.saveJob(job);
+		return new ActionResult<>(j);
+	}
+	
+	@PutMapping("/")
+	public ActionResult<?> updateJob(Job job){
+		Job j = huoService.updateJob(job);
+		return new ActionResult<>(j);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ActionResult<?> deleteJob(@PathVariable("id") String id){
+		huoService.deleteJob(id);
+		return new ActionResult<>();
+	}
+	
+	@GetMapping("/findall")
+	public Page<Job> findAll(@RequestParam(value="pageNumber",required=false,defaultValue="0")int pageNumber,@RequestParam(value="pageSize",required=false,defaultValue="10") int pageSize){
+		return huoService.findAll(PageRequest.of(pageNumber, pageSize));
 	}
 }

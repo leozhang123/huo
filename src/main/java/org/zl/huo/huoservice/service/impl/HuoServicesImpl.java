@@ -15,12 +15,21 @@
  */
 package org.zl.huo.huoservice.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 import org.zl.huo.huoservice.bean.Job;
-import org.zl.huo.huoservice.bean.Sex;
+import org.zl.huo.huoservice.jpa.JobRepository;
 import org.zl.huo.huoservice.service.HuoService;
 
 /**
@@ -32,21 +41,50 @@ import org.zl.huo.huoservice.service.HuoService;
 @Service
 public class HuoServicesImpl implements HuoService{
 
+	private static final Logger log = LoggerFactory.getLogger(HuoServicesImpl.class);
+	@Autowired
+	JobRepository jobRepository;
+	
 	@Override
 	public Job getJob(String id) {
-		Job job = new Job();
+		/*Job job = new Job();
 		job.setId(id);
 		job.setAge(11);
 		job.setSalary("test"+id);
-		job.setSex(Sex.MALE);
-		return job;
+		job.setSex(Sex.MALE);*/
+		Optional<Job> job = jobRepository.findById(id);
+		return job.orElse(null);
 	}
 
 	@Override
-	public List<Job> queryJob(String param) {
-		List<Job> list = new ArrayList<>();
-		list.add(getJob("1"));
-		return list;
+	public List<Job> findTop10(String name) {
+		log.debug("findTop10[{}]",name);
+		if(StringUtils.isEmpty(name)) {
+			return jobRepository.findTop10(PageRequest.of(0, 10));
+		}
+		return jobRepository.findTop10ByPosition(name,PageRequest.of(0, 10));
+	}
+
+	@Override
+	public Job saveJob(Job job) {
+		job.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+		return jobRepository.save(job);
+	}
+
+	@Override
+	public Job updateJob(Job job) {
+		Assert.hasText(job.getId(),"id not empty");
+		return jobRepository.save(job);
+	}
+
+	@Override
+	public void deleteJob(String id) {
+		jobRepository.deleteById(id);
+	}
+
+	@Override
+	public Page<Job> findAll(Pageable pageable) {
+		return jobRepository.findAll(pageable);
 	}
 
 	
