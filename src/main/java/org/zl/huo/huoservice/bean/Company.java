@@ -18,12 +18,6 @@ package org.zl.huo.huoservice.bean;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,27 +27,19 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Leo
  * @version 0.1
  */
-@Entity
-@Table(name = "h_company")
 public class Company {
 
-	@Id
 	private String id;
 	//企业名称
-	@Column(name = "name")
 	private String name;
 	//招聘公司图标
-	@Column(name = "logo")
 	private String logo;
 	//发薪日
-	@Column(name = "pay_day")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate payDay;
 	//公司介绍
-	@Column(name = "info")
 	private String info;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company") 
 	private List<Job> job;
 	
 	/**

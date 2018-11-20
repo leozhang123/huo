@@ -33,9 +33,9 @@ import org.zl.huo.huoservice.jpa.domain.JJob;
 @RepositoryDefinition(domainClass = JJob.class, idClass = String.class)
 public interface JobRepository extends PagingAndSortingRepository<JJob, String> {
 
-	@Query("from Job where position like %:position%")
+	@Query("from JJob where position like %:position%")
 	List<JJob> findTop10ByPosition(@Param("position") String position,Pageable pageable);
 	
-	@Query("from Job")
+	@Query("from JJob")
 	List<JJob> findTop10(Pageable pageable);
 }
