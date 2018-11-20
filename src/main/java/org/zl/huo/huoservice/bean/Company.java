@@ -15,17 +15,98 @@
  */
 package org.zl.huo.huoservice.bean;
 
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * 公司信息
  * 
  * @author Leo
  * @version 0.1
  */
+@Entity
+@Table(name = "h_company")
 public class Company {
 
-	//招聘公司
+	@Id
+	private String id;
+	//企业名称
+	@Column(name = "name")
 	private String name;
 	//招聘公司图标
+	@Column(name = "logo")
 	private String logo;
-	
+	//发薪日
+	@Column(name = "pay_day")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate payDay;
+	//公司介绍
+	@Column(name = "info")
+	private String info;
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	/**
+	 * @return the logo
+	 */
+	public String getLogo() {
+		return logo;
+	}
+	/**
+	 * @param logo the logo to set
+	 */
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+	/**
+	 * @return the payDay
+	 */
+	public LocalDate getPayDay() {
+		return payDay;
+	}
+	/**
+	 * @param payDay the payDay to set
+	 */
+	public void setPayDay(LocalDate payDay) {
+		this.payDay = payDay;
+	}
+	/**
+	 * @return the info
+	 */
+	public String getInfo() {
+		return info;
+	}
+	/**
+	 * @param info the info to set
+	 */
+	public void setInfo(String info) {
+		this.info = info;
+	}
 }

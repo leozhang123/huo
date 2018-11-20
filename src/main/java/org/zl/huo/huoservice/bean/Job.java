@@ -19,8 +19,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -41,10 +39,10 @@ public class Job implements Serializable {
 	
 	@Id
 	private String id;
-	//月薪
+	//综合薪资
 	@Column(name="SALARY")
 	private String salary;
-	//岗位
+	//工作岗位
 	@Column(name="POSITION")
 	private String position;
 	//年龄
@@ -56,9 +54,31 @@ public class Job implements Serializable {
 	//地址
 	@Column(name="ADDRESS")
 	private String address;
-	//招聘位置
+	//工作地点
 	@Column(name="LOCATION")
 	private String location;
+	//底薪
+	//薪资结构
+	//伙食
+	//住宿
+	//交通
+	//工作内容
+	//工作时长
+	//工作环境
+	//合同说明
+	//工资发放
+	//保险说明
+	//身份证
+	//毕业证
+	//技能证书
+	//年龄
+	//性别
+	//纹身
+	///烟疤
+	//英文水平
+	//服装要求
+	//体检要求
+	
 	
 	/**
 	 * @return the salary
@@ -66,6 +86,7 @@ public class Job implements Serializable {
 	public String getSalary() {
 		return salary;
 	}
+	
 	/**
 	 * @param salary the salary to set
 	 */
