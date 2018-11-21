@@ -16,7 +16,9 @@
 package org.zl.huo.huoservice.jpa.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -120,7 +122,10 @@ public class JJob implements Serializable {
 	@Column
 	private String physicalExamination;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@Column
+	private LocalDateTime createDate;
+	
+	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.EAGER,optional=false)
 	@JoinColumn(name = "companyid")
 	private JCompany company;
 	
@@ -556,5 +561,19 @@ public class JJob implements Serializable {
 	 */
 	public void setCompany(JCompany company) {
 		this.company = company;
+	}
+
+	/**
+	 * @return the createDate
+	 */
+	public LocalDateTime getCreateDate() {
+		return createDate;
+	}
+
+	/**
+	 * @param createDate the createDate to set
+	 */
+	public void setCreateDate(LocalDateTime createDate) {
+		this.createDate = createDate;
 	}
 }

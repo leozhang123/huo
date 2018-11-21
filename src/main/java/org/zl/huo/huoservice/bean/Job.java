@@ -16,7 +16,13 @@
 package org.zl.huo.huoservice.bean;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 
 /**
  * 招聘职位信息
@@ -24,6 +30,7 @@ import java.io.Serializable;
  * @author Leo
  * @version 0.1
  */
+@ApiModel(value="Job",description="招聘职位信息")
 public class Job implements Serializable {
 
 	/**
@@ -31,58 +38,105 @@ public class Job implements Serializable {
 	 */
 	private static final long serialVersionUID = -2981458250011887437L;
 	
+	@ApiModelProperty(value="id.新建请留空",name="id",notes="新建请保持空")
 	private String id;
 	//综合薪资
+	@ApiModelProperty(value="综合薪资",name="salary")
 	private String salary;
 	//工作岗位
+	@ApiModelProperty(value="工作岗位",name="position")
 	private String position;
 	//年龄
+	@ApiModelProperty(value="年龄",name="age",example="0")
 	private int age;
 	//性别
+	@ApiModelProperty(value="性别",name="sex")
 	private Sex sex;
 	//地址
+	@ApiModelProperty(value="地址",name="address")
 	private String address;
 	//工作地点
+	@ApiModelProperty(value="工作地点",name="location")
 	private String location;
 	//底薪
+	@ApiModelProperty(value="底薪",name="basicSalary")
 	private String basicSalary;
 	//薪资结构
-	private String SalaryStructure;
+	@ApiModelProperty(value="薪资结构",name="salaryStructure")
+	private String salaryStructure;
 	//伙食
+	@ApiModelProperty(value="伙食",name="food")
 	private String food;
 	//住宿
+	@ApiModelProperty(value="住宿",name="dormitory")
 	private String dormitory;
 	//交通
+	@ApiModelProperty(value="交通",name="traffic")
 	private String traffic;
 	//工作内容
-	private String JobContent ;
+	@ApiModelProperty(value="工作内容",name="jobContent")
+	private String jobContent ;
 	//工作时长
+	@ApiModelProperty(value="工作时长",name="workTime")
 	private String workTime;
 	//工作环境
+	@ApiModelProperty(value="工作环境",name="workEnv")
 	private String workEnv;
 	//合同说明
+	@ApiModelProperty(value="合同说明",name="contractDesc")
 	private String contractDesc;
 	//工资发放
-	private String Payroll;
+	@ApiModelProperty(value="工资发放",name="payRoll")
+	private String payRoll;
 	//保险说明
-	private String InsuranceDesc;
+	@ApiModelProperty(value="保险说明",name="insuranceDesc")
+	private String insuranceDesc;
 	//身份证
+	@ApiModelProperty(value="身份证",name="idCard")
 	private String idCard;
 	//毕业证
+	@ApiModelProperty(value="毕业证",name="diploma")
 	private String diploma;
 	//技能证书
+	@ApiModelProperty(value="技能证书",name="skillCertificate")
 	private String skillCertificate;
 	//纹身
+	@ApiModelProperty(value="纹身",name="tattoo")
 	private String tattoo;
 	///烟疤
+	@ApiModelProperty(value="烟疤",name="scars")
 	private String scars;
 	//英文水平
+	@ApiModelProperty(value="英文水平",name="englishLevel")
 	private String englishLevel;
 	//服装要求
+	@ApiModelProperty(value="服装要求",name="clothingRequirements")
 	private String clothingRequirements;
 	//体检要求
+	@ApiModelProperty(value="体检要求",name="physicalExamination")
 	private String physicalExamination;
-
+	
+	@ApiModelProperty(value="创建时间",name="createDate",accessMode=AccessMode.READ_ONLY)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDateTime createDate;
+	
+	//企业信息
+	@ApiModelProperty(value="企业id.新建请留空",name="companyId",notes="新建不要填写")
+	private String companyId;
+	//企业名称
+	@ApiModelProperty(value="企业名称",name="companyName")
+	private String companyName;
+	
+	//招聘公司图标
+	@ApiModelProperty(value="招聘公司图标",name="companyLogo")
+	private String companyLogo;
+	//发薪日
+	@ApiModelProperty(value="发薪日",name="payDay")
+	private String payDay;
+	//公司介绍
+	@ApiModelProperty(value="公司介绍",name="companyInfo")
+	private String companyInfo;
+	
 	/**
 	 * @return the salary
 	 */
@@ -188,14 +242,14 @@ public class Job implements Serializable {
 	 * @return the salaryStructure
 	 */
 	public String getSalaryStructure() {
-		return SalaryStructure;
+		return salaryStructure;
 	}
 
 	/**
 	 * @param salaryStructure the salaryStructure to set
 	 */
 	public void setSalaryStructure(String salaryStructure) {
-		SalaryStructure = salaryStructure;
+		this.salaryStructure = salaryStructure;
 	}
 
 	/**
@@ -244,14 +298,14 @@ public class Job implements Serializable {
 	 * @return the jobContent
 	 */
 	public String getJobContent() {
-		return JobContent;
+		return jobContent;
 	}
 
 	/**
 	 * @param jobContent the jobContent to set
 	 */
 	public void setJobContent(String jobContent) {
-		JobContent = jobContent;
+		this.jobContent = jobContent;
 	}
 
 	/**
@@ -297,31 +351,17 @@ public class Job implements Serializable {
 	}
 
 	/**
-	 * @return the payroll
-	 */
-	public String getPayroll() {
-		return Payroll;
-	}
-
-	/**
-	 * @param payroll the payroll to set
-	 */
-	public void setPayroll(String payroll) {
-		Payroll = payroll;
-	}
-
-	/**
 	 * @return the insuranceDesc
 	 */
 	public String getInsuranceDesc() {
-		return InsuranceDesc;
+		return insuranceDesc;
 	}
 
 	/**
 	 * @param insuranceDesc the insuranceDesc to set
 	 */
 	public void setInsuranceDesc(String insuranceDesc) {
-		InsuranceDesc = insuranceDesc;
+		this.insuranceDesc = insuranceDesc;
 	}
 
 	/**
@@ -458,26 +498,26 @@ public class Job implements Serializable {
 			builder.append(location);
 			builder.append(", basicSalary=");
 			builder.append(basicSalary);
-			builder.append(", SalaryStructure=");
-			builder.append(SalaryStructure);
+			builder.append(", salaryStructure=");
+			builder.append(salaryStructure);
 			builder.append(", food=");
 			builder.append(food);
 			builder.append(", dormitory=");
 			builder.append(dormitory);
 			builder.append(", traffic=");
 			builder.append(traffic);
-			builder.append(", JobContent=");
-			builder.append(JobContent);
+			builder.append(", jobContent=");
+			builder.append(jobContent);
 			builder.append(", workTime=");
 			builder.append(workTime);
 			builder.append(", workEnv=");
 			builder.append(workEnv);
 			builder.append(", contractDesc=");
 			builder.append(contractDesc);
-			builder.append(", Payroll=");
-			builder.append(Payroll);
-			builder.append(", InsuranceDesc=");
-			builder.append(InsuranceDesc);
+			builder.append(", payRoll=");
+			builder.append(payRoll);
+			builder.append(", insuranceDesc=");
+			builder.append(insuranceDesc);
 			builder.append(", idCard=");
 			builder.append(idCard);
 			builder.append(", diploma=");
@@ -494,8 +534,118 @@ public class Job implements Serializable {
 			builder.append(clothingRequirements);
 			builder.append(", physicalExamination=");
 			builder.append(physicalExamination);
+			builder.append(", createDate=");
+			builder.append(createDate);
+			builder.append(", companyId=");
+			builder.append(companyId);
+			builder.append(", companyName=");
+			builder.append(companyName);
+			builder.append(", companyLogo=");
+			builder.append(companyLogo);
+			builder.append(", payDay=");
+			builder.append(payDay);
+			builder.append(", companyInfo=");
+			builder.append(companyInfo);
 			builder.append("]");
 			return builder.toString();
+		}
+
+		/**
+		 * @return the companyId
+		 */
+		public String getCompanyId() {
+			return companyId;
+		}
+
+		/**
+		 * @param companyId the companyId to set
+		 */
+		public void setCompanyId(String companyId) {
+			this.companyId = companyId;
+		}
+
+		/**
+		 * @return the companyName
+		 */
+		public String getCompanyName() {
+			return companyName;
+		}
+
+		/**
+		 * @param companyName the companyName to set
+		 */
+		public void setCompanyName(String companyName) {
+			this.companyName = companyName;
+		}
+
+		/**
+		 * @return the companyLogo
+		 */
+		public String getCompanyLogo() {
+			return companyLogo;
+		}
+
+		/**
+		 * @param companyLogo the companyLogo to set
+		 */
+		public void setCompanyLogo(String companyLogo) {
+			this.companyLogo = companyLogo;
+		}
+
+		/**
+		 * @return the payDay
+		 */
+		public String getPayDay() {
+			return payDay;
+		}
+
+		/**
+		 * @param companyInfo the companyInfo to set
+		 */
+		public void setCompanyInfo(String companyInfo) {
+			this.companyInfo = companyInfo;
+		}
+
+		/**
+		 * @return the createDate
+		 */
+		public LocalDateTime getCreateDate() {
+			return createDate;
+		}
+
+		/**
+		 * @param createDate the createDate to set
+		 */
+		public void setCreateDate(LocalDateTime createDate) {
+			this.createDate = createDate;
+		}
+
+		/**
+		 * @return the payRoll
+		 */
+		public String getPayRoll() {
+			return payRoll;
+		}
+
+		/**
+		 * @param payRoll the payRoll to set
+		 */
+		public void setPayRoll(String payRoll) {
+			this.payRoll = payRoll;
+		}
+
+		/**
+		 * @return the companyInfo
+		 */
+		public String getCompanyInfo() {
+			return companyInfo;
+		}
+
+		/**
+		 * @param payDay the payDay to set
+		 */
+		public void setPayDay(String payDay) {
+			this.payDay = payDay;
 		}
 
 }

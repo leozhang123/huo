@@ -15,21 +15,27 @@
  */
 package org.zl.huo.huoservice.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.zl.huo.huoservice.bean.Job;
 import org.zl.huo.huoservice.bean.Pager;
+import org.zl.huo.huoservice.jpa.CompanyRepository;
 import org.zl.huo.huoservice.jpa.JobRepository;
+import org.zl.huo.huoservice.jpa.domain.JCompany;
 import org.zl.huo.huoservice.jpa.domain.JJob;
 import org.zl.huo.huoservice.service.HuoService;
 
@@ -43,8 +49,12 @@ import org.zl.huo.huoservice.service.HuoService;
 public class HuoServicesImpl implements HuoService{
 
 	private static final Logger log = LoggerFactory.getLogger(HuoServicesImpl.class);
+	
 	@Autowired
 	JobRepository jobRepository;
+	
+	@Autowired
+	CompanyRepository companyRepository;
 	
 	@Override
 	public Job getJob(String id) {
@@ -59,23 +69,36 @@ public class HuoServicesImpl implements HuoService{
 
 	@Override
 	public List<Job> findTop10(String name) {
-		log.debug("findTop10[{}]",name);
-		if(StringUtils.isEmpty(name)) {
-			return ModelHelper.jjob2Job(jobRepository.findTop10(PageRequest.of(0, 10)));
+		log.debug("findTop10[{}]", name);
+		if (StringUtils.isEmpty(name)) {
+			return ModelHelper.jjob2Job(
+					jobRepository.findTop10(PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "createDate"))));
 		}
-		return ModelHelper.jjob2Job(jobRepository.findTop10ByPosition(name,PageRequest.of(0, 10)));
+		return ModelHelper.jjob2Job(jobRepository.findTop10ByPosition(name,
+				PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "createDate"))));
 	}
 
 	@Override
+	@Transactional
 	public Job saveJob(Job job) {
 		job.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-		JJob jjob=jobRepository.save(ModelHelper.job2JJob(job));
+		job.setCreateDate(LocalDateTime.now());
+		JJob jjob = ModelHelper.job2JJob(job);
+		log.debug("save job:{}",jjob);
+		if(StringUtils.isEmpty(job.getCompanyId())) {
+			JCompany company = jjob.getCompany();
+			company.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+			companyRepository.save(company);
+		}
+		jjob=jobRepository.save(jjob);
 		return ModelHelper.jjob2Job(jjob);
 	}
 
 	@Override
+	@Transactional
 	public Job updateJob(Job job) {
-		Assert.hasText(job.getId(),"id not empty");
+		Assert.hasText(job.getId(),"id is empty");
+		Assert.hasText(job.getCompanyId(),"company id is empty");
 		JJob jjob=jobRepository.save(ModelHelper.job2JJob(job));
 		return ModelHelper.jjob2Job(jjob);
 	}

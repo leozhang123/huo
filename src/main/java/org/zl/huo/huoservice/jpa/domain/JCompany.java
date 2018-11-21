@@ -15,7 +15,7 @@
  */
 package org.zl.huo.huoservice.jpa.domain;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,8 +25,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 /**
  * 公司信息
  * 
@@ -35,8 +33,13 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name = "h_company")
-public class JCompany {
+public class JCompany implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7732363675733495586L;
+	
 	@Id
 	private String id;
 	//企业名称
@@ -47,13 +50,12 @@ public class JCompany {
 	private String logo;
 	//发薪日
 	@Column(name = "pay_day")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate payDay;
+	private String payDay;
 	//公司介绍
 	@Column(name = "info")
 	private String info;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company") 
+	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "company") 
 	private List<JJob> job;
 	
 	/**
@@ -95,13 +97,13 @@ public class JCompany {
 	/**
 	 * @return the payDay
 	 */
-	public LocalDate getPayDay() {
+	public String getPayDay() {
 		return payDay;
 	}
 	/**
 	 * @param payDay the payDay to set
 	 */
-	public void setPayDay(LocalDate payDay) {
+	public void setPayDay(String payDay) {
 		this.payDay = payDay;
 	}
 	/**
